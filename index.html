@@ -151,12 +151,14 @@
     const poster = document.getElementById('posterContainer');
     canvas.width = poster.offsetWidth;
     canvas.height = poster.offsetHeight;
+    studentPhototop = 0.28*canvas.height; 
+    studentleft=0.33*canvas.width
 
     // Draw the background (poster) image
     const bgImage = new Image();
     bgImage.src = 'poster.png';  // Same background image as the div
     bgImage.onload = function() {
-      ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+      ctx.drawImage(bgImage, studentleft, studentPhototop, canvas.width, canvas.height);
 
       // Now, draw the student's photo once the image is loaded
       const studentPhoto = document.getElementById('studentPhoto');
