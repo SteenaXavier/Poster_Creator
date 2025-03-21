@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Poster Generator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    p{
+        margin: 0;
+        
+    }
+    .poster-container {
+      position: relative;
+      width: 600px;
+      height: 1020px;
+      background-image: url('poster.png'); /* Set your poster image here */
+      background-size: cover;
+      background-position: center;
+      border: 2px solid #000;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .student-info {
+        position: absolute;
+      width: 215px;
+      height: 50px;
+      left: 34%;
+      top: 61%;
+      
+      justify-content: center;
+      justify-items: center;
+      color: rgb(11, 11, 11);
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .student-photo {    
+      position: absolute;
+      align-items: center;
+      top:28%;
+      left:33%;
+      width: 214px;
+      height: 276px;
+      
+      border: 5px solid white;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    input[type="file"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .download-btn {
+      margin-top: 20px;
+      display: none;
+      padding: 10px 20px;
+      background-color: #008CBA;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background-color: #005f73;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h1>Student Poster Generator</h1>
+  <form id="posterForm">
+    <input type="file" id="photo" accept="image/*" required>
+    <input type="text" id="name" placeholder="Student's Name" required>
+    <input type="text" id="class" placeholder="Class" required>
+    <button type="submit">Generate Poster</button>
+  </form>
+</div>
+
+<div class="poster-container" id="posterContainer">
+  <img id="studentPhoto" class="student-photo" src="" alt="Student's Photo">
+  <div id="studentInfo" class="student-info">
+    <p id="studentName"> </p>
+    <p id="studentClass"> </p>
+  </div>
+</div>
+
+<button id="downloadLink" class="download-btn">Download Poster</button>
+
+<script>
+  document.getElementById('posterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const photo = document.getElementById('photo').files[0];
+    const name = document.getElementById('name').value;
+    const className = document.getElementById('class').value;
+
+    // Display student's name and class on the poster
+    document.getElementById('studentName').textContent =  name;
+    document.getElementById('studentClass').textContent =  `Class:  ${className}`;
+
+    // Display student's photo
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      document.getElementById('studentPhoto').src = event.target.result;
+    }
+    reader.readAsDataURL(photo);
+
+    // Show the download button after generating the poster
+    document.getElementById('downloadLink').style.display = 'inline-block';
+  });
+
+  document.getElementById('downloadLink').addEventListener('click', function() {
+    // Create a canvas element to draw the poster
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Get the poster container size
+    const poster = document.getElementById('posterContainer');
+    canvas.width = poster.offsetWidth;
+    canvas.height = poster.offsetHeight;
+
+    // Draw the background (poster) image
+    const bgImage = new Image();
+    bgImage.src = 'poster.png';  // Same background image as the div
+    bgImage.onload = function() {
+      ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+
+      // Now, draw the student's photo once the image is loaded
+      const studentPhoto = document.getElementById('studentPhoto');
+      
+      // Ensure the student's photo is loaded
+      studentPhoto.onload = function() {
+        ctx.drawImage(studentPhoto, 20, 50, 150, 150);
+
+        // Draw the student's name and class
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 24px Arial';
+        ctx.fillText(document.getElementById('studentName').textContent, 20, 320);
+        ctx.fillText(document.getElementById('studentClass').textContent, 20, 360);
+        const link = document.createElement('a');
+           
+        // Convert the canvas to a PNG image
+        canvas.toBlob(function(blob) {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob); // Create a Blob URL
+          link.download = 'student-poster.png'; // Set the filename for the download
+          link.click(); // Trigger the download by simulating a click
+        }, 'image/png');
+      };
+
+      // If the image is already loaded, manually trigger the onload callback
+      if (studentPhoto.complete) {
+        studentPhoto.onload();
+      }
+    };
+  });
+</script>
+
+</body>
+</html>
