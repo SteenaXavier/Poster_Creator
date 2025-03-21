@@ -177,8 +177,8 @@
         const classYPosition = canvas.height / 2 + 40; // Slightly below center for class
 
     // Draw the student's name and class on the canvas
-        ctx.fillText(studentName, canvas.width / 2, nameYPosition); // Centered horizontally and positioned vertically
-        ctx.fillText(studentClass, canvas.width / 2, classYPosition);
+        ctx.fillText(document.getElementById('studentName'), canvas.width / 2, nameYPosition); // Centered horizontally and positioned vertically
+        ctx.fillText(document.getElementById('studentClass'), canvas.width / 2, classYPosition);
         const link = document.createElement('a');
            
         // Convert the canvas to a PNG image
