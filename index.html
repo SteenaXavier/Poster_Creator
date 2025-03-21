@@ -158,14 +158,14 @@
     const bgImage = new Image();
     bgImage.src = 'poster.png';  // Same background image as the div
     bgImage.onload = function() {
-      ctx.drawImage(bgImage, studentleft, studentPhototop, canvas.width, canvas.height);
+      ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
       // Now, draw the student's photo once the image is loaded
       const studentPhoto = document.getElementById('studentPhoto');
       
       // Ensure the student's photo is loaded
       studentPhoto.onload = function() {
-        ctx.drawImage(studentPhoto, 20, 50, 150, 150);
+        ctx.drawImage(studentPhoto, studentleft, studentPhototop, 150, 150);
 
         // Draw the student's name and class
         ctx.fillStyle = 'white';
