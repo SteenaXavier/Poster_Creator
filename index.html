@@ -170,8 +170,12 @@
         ctx.font = 'bold 24px Arial';
         ctx.textAlign = 'center';  // Horizontally center the text
         ctx.textBaseline = 'middle';
-        ctx.fillText(document.getElementById('studentName').textContent, 20, 320);
-        ctx.fillText(document.getElementById('studentClass').textContent, 20, 360);
+        const nameYPosition = canvas.height / 2 - 40; // Slightly above center for name
+        const classYPosition = canvas.height / 2 + 40; // Slightly below center for class
+
+    // Draw the student's name and class on the canvas
+        ctx.fillText(studentName, canvas.width / 2, nameYPosition); // Centered horizontally and positioned vertically
+        ctx.fillText(studentClass, canvas.width / 2, classYPosition);
         const link = document.createElement('a');
            
         // Convert the canvas to a PNG image
