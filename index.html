@@ -191,7 +191,7 @@
           link.click(); // Trigger the download by simulating a click
         }, 'image/png');
       };
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
       // If the image is already loaded, manually trigger the onload callback
       if (studentPhoto.complete) {
         studentPhoto.onload();
