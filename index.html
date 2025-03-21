@@ -188,10 +188,12 @@
           const link = document.createElement('a');
           link.href = URL.createObjectURL(blob); // Create a Blob URL
           link.download = 'student-poster.png'; // Set the filename for the download
-          link.click(); // Trigger the download by simulating a click
+          link.click();
+          location.reload()// Trigger the download by simulating a click
         }, 'image/png');
+        
       };
-    
+       
       // If the image is already loaded, manually trigger the onload callback
       if (studentPhoto.complete) {
         studentPhoto.onload();
