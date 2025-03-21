@@ -106,7 +106,10 @@
     <input type="text" id="name" placeholder="Student's Name" required>
     <input type="text" id="class" placeholder="Class" required>
     <button type="submit">Generate Poster</button>
+    
+
   </form>
+  <button id="downloadLink" class="download-btn">Download Poster</button>
 </div>
 
 <div class="poster-container" id="posterContainer">
@@ -117,7 +120,6 @@
   </div>
 </div>
 
-<button id="downloadLink" class="download-btn">Download Poster</button>
 
 <script>
   document.getElementById('posterForm').addEventListener('submit', function(e) {
@@ -173,8 +175,8 @@
         ctx.font = 'bold 24px Arial';
         ctx.textAlign = 'center';  // Horizontally center the text
         ctx.textBaseline = 'middle';
-        const nameYPosition = 0.61*canvas.height; // Slightly above center for name
-        const classYPosition = 0.63*canvas.height; // Slightly below center for class
+        const nameYPosition = 0.615*canvas.height; // Slightly above center for name
+        const classYPosition = 0.64*canvas.height; // Slightly below center for class
 
     // Draw the student's name and class on the canvas
         ctx.fillText(document.getElementById('studentName').textContent, canvas.width / 2, nameYPosition); // Centered horizontally and positioned vertically
